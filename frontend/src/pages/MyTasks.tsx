@@ -74,7 +74,7 @@ export default function MyTasks() {
   const { data: projectData = { list: [], roles: {} } } = useQuery({
     queryKey: ['projectsWithRoles'],
     queryFn: async () => {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/projects', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects`, { headers: { Authorization: `Bearer ${token}` } });
       const projs = await res.json();
       
       const rolesDict: Record<string, string> = {};
@@ -109,7 +109,7 @@ export default function MyTasks() {
   const { data: tasks = [], isLoading: isTasksLoading } = useQuery({
     queryKey: ['tasks'],
     queryFn: async () => {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/tasks', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, { headers: { Authorization: `Bearer ${token}` } });
       const data = await res.json();
       if (!Array.isArray(data)) return [];
 
@@ -173,7 +173,7 @@ export default function MyTasks() {
 
   const createTaskMut = useMutation({
     mutationFn: async () => {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/tasks', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ title: newTaskTitle, description: newTaskDescription, priority: newTaskPriority, projectId: newTaskProjectId, status: 'To Do' })

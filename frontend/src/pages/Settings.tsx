@@ -63,7 +63,7 @@ export default function Settings() {
     const profileData = { firstName, lastName, jobTitle, bio };
 
     try {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/users/me', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/me`, {
         method: 'PUT', 
         headers: { 
           'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ export default function Settings() {
       const token = localStorage.getItem('workvia_token');
       
       try {
-        const res = await fetch('${import.meta.env.VITE_API_URL}/api/users/me/avatar', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/me/avatar`, {
           method: 'POST',
           headers: { 'Authorization': `Bearer ${token}` },
           body: formData
@@ -148,7 +148,7 @@ export default function Settings() {
     const token = localStorage.getItem('workvia_token');
     
     try {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/users/me/avatar', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/me/avatar`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -176,7 +176,7 @@ export default function Settings() {
     }
     const token = localStorage.getItem('workvia_token');
     try {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/users/me/password', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/me/password`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ currentPassword, newPassword })

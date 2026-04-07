@@ -99,8 +99,8 @@ export default function ProjectDetail() {
     queryKey: ['projectData', projectId],
     queryFn: async () => {
       const [projRes, taskRes] = await Promise.all([
-        fetch('${import.meta.env.VITE_API_URL}/api/projects', { headers: { 'Authorization': `Bearer ${token}` } }),
-        fetch('${import.meta.env.VITE_API_URL}/api/tasks', { headers: { 'Authorization': `Bearer ${token}` } })
+        fetch(`${import.meta.env.VITE_API_URL}/api/projects`, { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, { headers: { 'Authorization': `Bearer ${token}` } })
       ]);
       const projects = await projRes.json();
       const tasks = await taskRes.json();
@@ -153,7 +153,7 @@ export default function ProjectDetail() {
   const handleSaveManualTask = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/tasks', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ projectId, title: newTask.title, description: newTask.description, priority: newTask.priority, status: 'To Do' })
@@ -166,7 +166,7 @@ export default function ProjectDetail() {
     if (!aiGoal.trim()) return;
     setIsAiLoading(true);
     try {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/ai/breakdown', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/ai/breakdown`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ title: aiGoal })
@@ -180,7 +180,7 @@ export default function ProjectDetail() {
     setIsSavingTasks(true);
     try {
       for (const task of aiResults) {
-        await fetch('${import.meta.env.VITE_API_URL}/api/tasks', {
+        await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify({ projectId, ...task, status: 'To Do' })

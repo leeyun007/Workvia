@@ -39,7 +39,7 @@ export default function SignUp() {
     if (countdown > 0) return;
     
     try {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/auth/resend-verification', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/resend-verification`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: userEmail }) 
@@ -72,7 +72,7 @@ export default function SignUp() {
     setErrorMsg('');
 
     try {
-      const response = await fetch('${import.meta.env.VITE_API_URL}/api/auth/register', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -192,7 +192,7 @@ export default function SignUp() {
                   onSuccess={async (credentialResponse) => {
                     const googleToken = credentialResponse.credential;
                     try {
-                      const response = await fetch('${import.meta.env.VITE_API_URL}/api/auth/google', {
+                      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/google`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ idToken: googleToken })

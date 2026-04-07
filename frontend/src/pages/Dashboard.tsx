@@ -49,8 +49,8 @@ export default function Dashboard() {
     queryFn: async () => {
       if (!token) return { projects: [], tasks: [] };
       const [pRes, tRes] = await Promise.all([
-        fetch('${import.meta.env.VITE_API_URL}/api/projects', { headers: { 'Authorization': `Bearer ${token}` } }),
-        fetch('${import.meta.env.VITE_API_URL}/api/tasks', { headers: { 'Authorization': `Bearer ${token}` } })
+        fetch(`${import.meta.env.VITE_API_URL}/api/projects`, { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, { headers: { 'Authorization': `Bearer ${token}` } })
       ]);
       const projects = await pRes.json();
       const tasks = await tRes.json();
@@ -66,7 +66,7 @@ export default function Dashboard() {
   const { data: barData = [] } = useQuery({
     queryKey: ['chartHistory'],
     queryFn: async () => {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/tasks/history/chart', { headers: { 'Authorization': `Bearer ${token}` } });
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/history/chart`, { headers: { 'Authorization': `Bearer ${token}` } });
       return res.json();
     },
     enabled: !!token
