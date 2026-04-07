@@ -115,9 +115,9 @@ export default function About() {
             <Link to="/signup" className="bg-white text-black px-6 py-2.5 rounded-lg font-medium hover:bg-gray-200 transition-colors flex items-center gap-2">
               Start for free <span>→</span>
             </Link>
-            <button className="bg-transparent border border-gray-700 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-gray-800 transition-colors">
+            <Link to="/login" className="bg-transparent border border-gray-700 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-gray-800 transition-colors">
               Log In
-            </button>
+            </Link>
           </div>
         </section>
       </main>
