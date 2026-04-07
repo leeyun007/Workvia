@@ -69,7 +69,7 @@ export default function TaskDetailDrawer({
 
   const updateStatusMut = useMutation({
     mutationFn: async (newStatus: string) => {
-      const res = await fetch(`http://localhost:8080/api/tasks/${task.id}/status`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/${task.id}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ status: newStatus })
@@ -82,7 +82,7 @@ export default function TaskDetailDrawer({
 
   const updateTitleMut = useMutation({
     mutationFn: async (newTitle: string) => {
-      const res = await fetch(`http://localhost:8080/api/tasks/${task.id}/title`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/${task.id}/title`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ title: newTitle })
@@ -95,7 +95,7 @@ export default function TaskDetailDrawer({
 
   const updateDetailsMut = useMutation({
     mutationFn: async (updates: any) => {
-      const res = await fetch(`http://localhost:8080/api/tasks/${task.id}/details`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/${task.id}/details`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(updates)
@@ -112,7 +112,7 @@ export default function TaskDetailDrawer({
 
   const deleteTaskMut = useMutation({
     mutationFn: async () => {
-      const res = await fetch(`http://localhost:8080/api/tasks/${task.id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/${task.id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -128,7 +128,7 @@ export default function TaskDetailDrawer({
 
   const postCommentMut = useMutation({
     mutationFn: async ({ content, attachment }: { content: string, attachment: any }) => {
-      const res = await fetch(`http://localhost:8080/api/tasks/${task.id}/comments`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/${task.id}/comments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ content: content || '', attachment })
@@ -145,7 +145,7 @@ export default function TaskDetailDrawer({
 
   const updateCommentMut = useMutation({
     mutationFn: async ({ commentId, content }: { commentId: string, content: string }) => {
-      const res = await fetch(`http://localhost:8080/api/tasks/comments/${commentId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/comments/${commentId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ content }) 
@@ -161,7 +161,7 @@ export default function TaskDetailDrawer({
 
   const deleteCommentMut = useMutation({
     mutationFn: async (commentId: string) => {
-      const res = await fetch(`http://localhost:8080/api/tasks/comments/${commentId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/comments/${commentId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -172,7 +172,7 @@ export default function TaskDetailDrawer({
 
   const removeAttachmentMut = useMutation({
     mutationFn: async (commentId: string) => {
-      const res = await fetch(`http://localhost:8080/api/tasks/comments/${commentId}/attachment`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/comments/${commentId}/attachment`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -185,7 +185,7 @@ export default function TaskDetailDrawer({
     mutationFn: async (file: File) => {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await fetch(`http://localhost:8080/api/tasks/${task.id}/attachments`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/${task.id}/attachments`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formData

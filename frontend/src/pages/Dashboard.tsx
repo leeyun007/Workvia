@@ -49,8 +49,8 @@ export default function Dashboard() {
     queryFn: async () => {
       if (!token) return { projects: [], tasks: [] };
       const [pRes, tRes] = await Promise.all([
-        fetch('http://localhost:8080/api/projects', { headers: { 'Authorization': `Bearer ${token}` } }),
-        fetch('http://localhost:8080/api/tasks', { headers: { 'Authorization': `Bearer ${token}` } })
+        fetch('${import.meta.env.VITE_API_URL}/api/projects', { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch('${import.meta.env.VITE_API_URL}/api/tasks', { headers: { 'Authorization': `Bearer ${token}` } })
       ]);
       const projects = await pRes.json();
       const tasks = await tRes.json();
@@ -66,7 +66,7 @@ export default function Dashboard() {
   const { data: barData = [] } = useQuery({
     queryKey: ['chartHistory'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:8080/api/tasks/history/chart', { headers: { 'Authorization': `Bearer ${token}` } });
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/tasks/history/chart', { headers: { 'Authorization': `Bearer ${token}` } });
       return res.json();
     },
     enabled: !!token
@@ -76,7 +76,7 @@ export default function Dashboard() {
   const { data: currentProjectMembers = [] } = useQuery({
     queryKey: ['projectMembers', selectedTask?.projectId],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:8080/api/projects/${selectedTask.projectId}/members`, { headers: { 'Authorization': `Bearer ${token}` } });
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${selectedTask.projectId}/members`, { headers: { 'Authorization': `Bearer ${token}` } });
       const members = await res.json();
       return members.map((m: any, index: number) => {
         const colors = ['bg-purple-600', 'bg-blue-600', 'bg-emerald-600', 'bg-amber-600', 'bg-pink-600'];

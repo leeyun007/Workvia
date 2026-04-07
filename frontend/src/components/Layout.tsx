@@ -107,7 +107,7 @@ export default function Layout() {
     queryFn: async () => {
       const token = localStorage.getItem('workvia_token');
       if (!token) return [];
-      const res = await fetch('http://localhost:8080/api/tasks', {
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/tasks', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!res.ok) return [];
@@ -119,7 +119,7 @@ export default function Layout() {
   const fetchNotifications = async () => {
     const token = localStorage.getItem('workvia_token');
     try {
-      const res = await fetch('http://localhost:8080/api/notifications', {
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/notifications', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) setNotifications(await res.json());
@@ -148,7 +148,7 @@ export default function Layout() {
   const markAllAsRead = async () => {
     const token = localStorage.getItem('workvia_token');
     try {
-      const res = await fetch('http://localhost:8080/api/notifications/read-all', {
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/notifications/read-all', {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -173,7 +173,7 @@ export default function Layout() {
     const token = localStorage.getItem('workvia_token');
     if (!token) return;
     try {
-      const res = await fetch('http://localhost:8080/api/projects', {
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/projects', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) setProjects(await res.json());
@@ -201,7 +201,7 @@ export default function Layout() {
     const token = localStorage.getItem('workvia_token');
     
     try {
-      const res = await fetch('http://localhost:8080/api/projects', {
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/projects', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

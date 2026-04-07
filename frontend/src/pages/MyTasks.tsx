@@ -74,13 +74,13 @@ export default function MyTasks() {
   const { data: projectData = { list: [], roles: {} } } = useQuery({
     queryKey: ['projectsWithRoles'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:8080/api/projects', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/projects', { headers: { Authorization: `Bearer ${token}` } });
       const projs = await res.json();
       
       const rolesDict: Record<string, string> = {};
       await Promise.all(projs.map(async (p: any) => {
         try {
-          const rRes = await fetch(`http://localhost:8080/api/projects/${p.id}/members`, { headers: { Authorization: `Bearer ${token}` } });
+          const rRes = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${p.id}/members`, { headers: { Authorization: `Bearer ${token}` } });
           if (rRes.ok) {
             const members = await rRes.json();
             const me = members.find((m: any) => m.user.email === userEmail);
@@ -109,7 +109,7 @@ export default function MyTasks() {
   const { data: tasks = [], isLoading: isTasksLoading } = useQuery({
     queryKey: ['tasks'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:8080/api/tasks', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/tasks', { headers: { Authorization: `Bearer ${token}` } });
       const data = await res.json();
       if (!Array.isArray(data)) return [];
 
@@ -155,7 +155,7 @@ export default function MyTasks() {
   const { data: currentProjectMembers = [] } = useQuery({
     queryKey: ['projectMembers', selectedTask?.projectId],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:8080/api/projects/${selectedTask.projectId}/members`, { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${selectedTask.projectId}/members`, { headers: { Authorization: `Bearer ${token}` } });
       const members = await res.json();
       return members.map((m: any, index: number) => {
         const colors = ['bg-purple-600', 'bg-blue-600', 'bg-emerald-600', 'bg-amber-600', 'bg-pink-600'];
@@ -173,7 +173,7 @@ export default function MyTasks() {
 
   const createTaskMut = useMutation({
     mutationFn: async () => {
-      const res = await fetch('http://localhost:8080/api/tasks', {
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ title: newTaskTitle, description: newTaskDescription, priority: newTaskPriority, projectId: newTaskProjectId, status: 'To Do' })

@@ -73,7 +73,7 @@ export default function ProjectDetail() {
   const { data: currentMembers = [] } = useQuery({
     queryKey: ['projectMembers', projectId], 
     queryFn: async () => {
-      const res = await fetch(`http://localhost:8080/api/projects/${projectId}/members`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${projectId}/members`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!res.ok) throw new Error('Failed to fetch members');
@@ -99,8 +99,8 @@ export default function ProjectDetail() {
     queryKey: ['projectData', projectId],
     queryFn: async () => {
       const [projRes, taskRes] = await Promise.all([
-        fetch('http://localhost:8080/api/projects', { headers: { 'Authorization': `Bearer ${token}` } }),
-        fetch('http://localhost:8080/api/tasks', { headers: { 'Authorization': `Bearer ${token}` } })
+        fetch('${import.meta.env.VITE_API_URL}/api/projects', { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch('${import.meta.env.VITE_API_URL}/api/tasks', { headers: { 'Authorization': `Bearer ${token}` } })
       ]);
       const projects = await projRes.json();
       const tasks = await taskRes.json();
@@ -153,7 +153,7 @@ export default function ProjectDetail() {
   const handleSaveManualTask = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:8080/api/tasks', {
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ projectId, title: newTask.title, description: newTask.description, priority: newTask.priority, status: 'To Do' })
@@ -166,7 +166,7 @@ export default function ProjectDetail() {
     if (!aiGoal.trim()) return;
     setIsAiLoading(true);
     try {
-      const res = await fetch('http://localhost:8080/api/ai/breakdown', {
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/ai/breakdown', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ title: aiGoal })
@@ -180,7 +180,7 @@ export default function ProjectDetail() {
     setIsSavingTasks(true);
     try {
       for (const task of aiResults) {
-        await fetch('http://localhost:8080/api/tasks', {
+        await fetch('${import.meta.env.VITE_API_URL}/api/tasks', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify({ projectId, ...task, status: 'To Do' })
@@ -195,7 +195,7 @@ export default function ProjectDetail() {
     if (!inviteEmail.trim()) return;
     setIsInviting(true);
     try {
-      const res = await fetch(`http://localhost:8080/api/projects/${projectId}/members`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${projectId}/members`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ email: inviteEmail })
@@ -214,7 +214,7 @@ export default function ProjectDetail() {
 
   const executeRemoveMember = async (userId: string) => {
     try {
-      const res = await fetch(`http://localhost:8080/api/projects/${projectId}/members/${userId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${projectId}/members/${userId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -225,7 +225,7 @@ export default function ProjectDetail() {
 
   const handleUpdateMemberRole = async (userId: string, newRole: string) => {
     try {
-      const res = await fetch(`http://localhost:8080/api/projects/${projectId}/members/${userId}/role`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${projectId}/members/${userId}/role`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ role: newRole })
@@ -243,7 +243,7 @@ export default function ProjectDetail() {
     if (!editProjectName.trim()) return;
     setIsUpdatingProject(true);
     try {
-      const res = await fetch(`http://localhost:8080/api/projects/${projectId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${projectId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ name: editProjectName, description: editProjectDesc })
@@ -262,7 +262,7 @@ export default function ProjectDetail() {
   const executeDeleteProject = async () => {
     setIsDeleting(true);
     try {
-      const res = await fetch(`http://localhost:8080/api/projects/${projectId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${projectId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
