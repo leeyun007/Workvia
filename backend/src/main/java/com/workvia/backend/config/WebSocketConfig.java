@@ -28,7 +28,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // Register the STOMP endpoint and allow cross-origin requests from the frontend
         registry.addEndpoint("/ws")
-                .setAllowedOrigins("http://localhost:5173", "https://workvia-production.up.railway.app");
+                .setAllowedOrigins("http://localhost:5173", "https://workvia-production.up.railway.app", "https://workvia.vercel.app");
     }
 
     @Override
