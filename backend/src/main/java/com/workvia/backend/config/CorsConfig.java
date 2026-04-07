@@ -12,7 +12,7 @@ public class CorsConfig implements WebMvcConfigurer {
         // Apply CORS configuration to all endpoints
         registry.addMapping("/**")
                 // Allow only the specific frontend origin for security
-                .allowedOrigins("http://localhost:5173")
+                .allowedOrigins("http://localhost:5173", "https://workvia-production.up.railway.app")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                 .allowedHeaders("*")
                 // Allow credentials such as cookies or Authorization headers
