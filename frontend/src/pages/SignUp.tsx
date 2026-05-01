@@ -215,7 +215,7 @@ export default function SignUp() {
                   onError={() => {
                     setErrorMsg("Google Sign Up Failed");
                   }}
-                  useOneTap
+                  use_fedcm_for_prompt={false}
                 />
               </div>
 

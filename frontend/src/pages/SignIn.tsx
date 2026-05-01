@@ -219,7 +219,7 @@ export default function SignIn() {
                 }
               }}
               onError={() => setErrorMsg("Google Login Failed in browser")}
-              useOneTap 
+              use_fedcm_for_prompt={false} 
             />
           </div>
 
