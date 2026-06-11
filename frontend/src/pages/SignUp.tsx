@@ -215,7 +215,7 @@ export default function SignUp() {
                   onError={() => {
                     setErrorMsg("Google Sign Up Failed");
                   }}
-                  use_fedcm_for_prompt={false}
+                  use_fedcm_for_prompt={true}
                 />
               </div>
 

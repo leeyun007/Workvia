@@ -219,7 +219,7 @@ export default function SignIn() {
                 }
               }}
               onError={() => setErrorMsg("Google Login Failed in browser")}
-              use_fedcm_for_prompt={false} 
+              use_fedcm_for_prompt={true} 
             />
           </div>
 
